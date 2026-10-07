@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Should I Do? · WattleBridge</title>
+  <meta name="description" content="A quick cybersecurity and privacy guide for WattleBridge volunteers and staff.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#scenarios">Skip to situations</a>
+
+  <!-- ===== Sticky top bar (Need help? always available) ===== -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path class="brand-shield" d="M16 3 5 7v8c0 7 4.6 11.6 11 14 6.4-2.4 11-7 11-14V7z"/>
+          <path class="brand-tick" d="m11 16 3.5 3.5L21.5 12"/>
+        </svg>
+        <span class="brand-name">WattleBridge <span class="brand-sub">Stay Safe Guide</span></span>
+      </div>
+      <button type="button" class="help-btn" data-open-help>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14"/><path d="M12 17h.01"/></svg>
+        Need help?
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== Hero + search ===== -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">WattleBridge Community Services · Cyber &amp; privacy</p>
+      <h1 id="heroTitle">What Should I Do?</h1>
+      <p class="hero-lead">Choose a situation and get the next safe step.</p>
+
+      <div class="search" role="search">
+        <label for="search" class="search-label">What are you having trouble with?</label>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="search" placeholder="Try email, MFA or phone" autocomplete="off" aria-describedby="searchStatus">
+          <button type="button" class="search-clear" id="searchClear" hidden>Clear</button>
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="Quick search terms"></div>
+      </div>
+
+      <p class="wallpaper-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span>Reached this page from the WattleBridge reporting reminder? Use the scenarios below to find the next step.</span>
+      </p>
+    </div>
+  </section>
+
+  <main>
+
+    <!-- ===== 3-step guide ===== -->
+    <section class="steps-band" aria-label="How to use this guide">
+      <div class="wrap">
+        <ol class="steps">
+          <li>
+            <button type="button" class="step" data-step="search">
+              <span class="step-num">1</span>
+              <span class="step-text">Pick a situation</span>
+            </button>
+          </li>
+          <li class="step-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </li>
+          <li>
+            <button type="button" class="step" data-step="scenarios">
+              <span class="step-num">2</span>
+              <span class="step-text">Check the guidance</span>
+            </button>
+          </li>
+          <li class="step-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </li>
+          <li>
+            <button type="button" class="step step--help" data-open-help>
+              <span class="step-num">3</span>
+              <span class="step-text">Report or ask for help</span>
+            </button>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Most common situations ===== -->
+    <section class="band band--common" aria-labelledby="commonTitle">
+      <div class="wrap">
+        <h2 id="commonTitle" class="section-title">Most common situations</h2>
+        <ul class="quick-grid" id="commonList"></ul>
+      </div>
+    </section>
+
+    <!-- ===== All situations (built by script.js) ===== -->
+    <section class="band band--all" id="scenarios" aria-labelledby="scenariosTitle">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="scenariosTitle" class="section-title">All situations</h2>
+          <p class="search-status" id="searchStatus" aria-live="polite"></p>
+        </div>
+        <div class="card-grid" id="cardGrid"></div>
+        <p class="no-results" id="noResults" hidden>
+          No close match. Try <strong>Not sure what to do</strong> above, or open <strong>Need Help?</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Quick Rules + Need Help ===== -->
+    <section class="band band--support" aria-label="Rules and help">
+      <div class="wrap support-grid">
+
+        <div class="fold">
+          <h2 class="fold-heading">
+            <button type="button" class="fold-toggle" id="rulesBtn" aria-expanded="false" aria-controls="rulesPanel">
+              <span class="fold-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg>
+              </span>
+              <span class="fold-text">
+                <span class="fold-title">Quick Rules</span>
+                <span class="fold-sub">Six habits that keep everyone safe</span>
+              </span>
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </h2>
+          <div class="collapse" id="rulesPanel">
+            <div class="collapse-inner">
+              <p class="fold-hint">Tap a rule to see why it matters.</p>
+              <ul class="rules" id="rulesList"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="fold fold--help" id="help">
+          <h2 class="fold-heading">
+            <button type="button" class="fold-toggle" id="helpBtn" aria-expanded="false" aria-controls="helpPanel">
+              <span class="fold-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="m5.6 5.6 3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/></svg>
+              </span>
+              <span class="fold-text">
+                <span class="fold-title">Need Help?</span>
+                <span class="fold-sub">Who to contact</span>
+              </span>
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </h2>
+          <div class="collapse" id="helpPanel">
+            <div class="collapse-inner">
+              <p class="placeholder-banner">
+                <strong>Placeholder contact details.</strong> Real WattleBridge contacts will be added later.
+              </p>
+              <ul class="contacts" id="helpList"></ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>WattleBridge Stay Safe Guide · Prototype. All contact details are placeholders.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

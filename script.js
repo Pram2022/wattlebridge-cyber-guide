@@ -6,39 +6,33 @@
    touch the HTML to change wording.
    ========================================================== */
 
-/* ---------- Contacts (all placeholders) ----------
-   Replace "Placeholder" with real details when known. */
+/* ---------- Contacts ----------
+   WattleBridge contact pathways. The same wording is used in
+   the scenario cards and the Need Help? section. */
 const CONTACTS = {
   digital: {
-    name: "Digital Systems",
+    name: "Digital Systems / BluePeak IT helpdesk",
     useFor: "Cyber or access issue",
-    email: "Placeholder",
-    phone: "Placeholder",
   },
   privacy: {
-    name: "Quality & Risk / Privacy",
+    name: "Quality, Risk & Safeguarding / Privacy mailbox",
     useFor: "Privacy concern",
-    email: "Placeholder",
-    phone: "Placeholder",
   },
   volunteer: {
     name: "Volunteer Coordinator",
     useFor: "Volunteer support",
-    email: "Placeholder",
-    phone: "Placeholder",
   },
   manager: {
-    name: "Your manager or coordinator",
+    name: "Your manager or the relevant incident channel",
     useFor: "Not sure",
-    email: "Placeholder",
-    phone: "Placeholder",
   },
 };
 
 /* ---------- Scenarios ----------
-   icon:     a key from ICONS below
-   keywords: words that match this card in the search box
-   contacts: keys from CONTACTS above */
+   icon:        a key from ICONS below
+   keywords:    words that match this card in the search box
+   contacts:    keys from CONTACTS above
+   contactNote: optional short line shown under the contacts */
 const SCENARIOS = [
   {
     id: "email",
@@ -96,10 +90,10 @@ const SCENARIOS = [
     dontList: [
       "Don't wait to see if it turns up.",
     ],
-    contacts: ["digital", "privacy"],
+    contacts: ["digital"],
     escalate: [
       "Always report lost or stolen devices immediately.",
-      "Tell Privacy too if client information was on the device.",
+      "Client information was on the device. Also tell the Privacy mailbox.",
     ],
   },
   {
@@ -117,7 +111,8 @@ const SCENARIOS = [
       "Don't save client information to the device.",
       "Don't let others use it while you're signed in.",
     ],
-    contacts: ["manager", "digital"],
+    contacts: ["digital", "volunteer"],
+    contactNote: "Or your manager if unsure.",
     escalate: [
       "The device is lost, stolen or shared while signed in.",
       "You think it has a virus or has been accessed.",
@@ -138,6 +133,7 @@ const SCENARIOS = [
       "Don't sign up with your WattleBridge account without checking.",
     ],
     contacts: ["digital"],
+    contactNote: "Or your manager if unsure.",
     escalate: [
       "You have already entered client or WattleBridge information into it.",
     ],
@@ -257,8 +253,6 @@ const ICONS = {
   alert: '<path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
   chevron: '<path d="m6 9 6 6 6-6"/>',
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
-  at: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
-  call: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
 };
 
 /* ==========================================================
@@ -282,10 +276,6 @@ function listItems(items, iconName) {
   return items.map((item) => `<li>${icon(iconName, "li-icon")}<span>${esc(item)}</span></li>`).join("");
 }
 
-function contactDetails(c) {
-  return `<span class="contact-detail">${icon("at")} Email: ${esc(c.email)}</span>
-          <span class="contact-detail">${icon("call")} Phone: ${esc(c.phone)}</span>`;
-}
 
 /* ---------- Generic open/close helper ----------
    Used by scenario cards, Quick Rules, each rule and Need Help.
@@ -316,11 +306,12 @@ function buildCard(s) {
     .map((key) => {
       const c = CONTACTS[key];
       return `<div class="contact-line">
-          <span class="contact-name">${esc(c.name)} <span class="tag">Placeholder</span></span>
-          ${contactDetails(c)}
+          <span class="contact-for">${esc(c.useFor)}</span>
+          <span class="contact-name">${esc(c.name)}</span>
         </div>`;
     })
     .join("");
+  const noteHtml = s.contactNote ? `<p class="contact-note">${esc(s.contactNote)}</p>` : "";
 
   const card = document.createElement("article");
   card.className = "card";
@@ -350,6 +341,7 @@ function buildCard(s) {
           <section class="callout callout--contact">
             <h4><span class="callout-badge">${icon("person")}</span> Who to contact</h4>
             ${contactsHtml}
+            ${noteHtml}
           </section>
           <section class="callout callout--escalate">
             <h4><span class="callout-badge">${icon("alert")}</span> Escalate now if</h4>
@@ -546,8 +538,7 @@ Object.values(CONTACTS).forEach((c) => {
   li.className = "contact-card";
   li.innerHTML = `
     <span class="contact-for">${esc(c.useFor)}</span>
-    <span class="contact-name">${esc(c.name)} <span class="tag">Placeholder</span></span>
-    ${contactDetails(c)}`;
+    <span class="contact-name">${esc(c.name)}</span>`;
   helpList.appendChild(li);
 });
 
